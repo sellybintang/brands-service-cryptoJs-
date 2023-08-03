@@ -5,17 +5,17 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     const roles = [{
       id_role:"1",
-      hak_Akses:["semuaProfileUsers", "register", "login", "ubahProfile", "hapusProfile"],
+      hak_Akses:["semuaProfileUsers","ubahProfile", "hapusProfile"],
       updatedAt:new Date(),
       createdAt:new Date()
     },{
       id_role:"2",
-      hak_Akses:["semuaProfileUsers", "register", "login"],
+      hak_Akses:["semuaProfileUsers",],
       updatedAt:new Date(),
       createdAt:new Date()
     },{
       id_role:"3",
-      hak_Akses:["semuaProfileUsers", "login"],
+      hak_Akses:["semuaProfileUsers", "buatClients", "ubahClients", "hapusClients","buatBrands", "ubahBrands","hapusBrands"],
       updatedAt:new Date(),
       createdAt:new Date()
     }]

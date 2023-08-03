@@ -1,6 +1,16 @@
 const Users = require ('../models').Users;
 const bcrypt = require('bcrypt');
-const { constants } = require('fs/promises');
+// const { constants } = require('fs/promises');
+const crypto= require('crypto-js');
+
+// create token
+
+const generateToken = async(payload) => {
+    const data = JSON.stringify(payload)
+    return crypto.AES.encrypt(data, process.env.KEY).toString()
+}
+
+
 
 // Register Users
 const register = async (req,res)=>{
@@ -72,14 +82,35 @@ const login = async(req, res) =>{
             return res.status (400).json({
                 status: 'Gagal',
                 message: 'Maaf, kata sandi salah'
-            })   
+            })
         }
-    }catch{
+       
+        const token = await generateToken({
+            role_id: masukUser.role,
+            user_id:masukUser.id
+        });
+        console.log(token)
+        
+        res.status(200).json({
+            status:'Berhasil',
+            message:'Anda Berhasil login', 
+            data: {
+                namaAwal: masukUser.namaAwal,
+                namaAkhir: masukUser.namaAkhir,
+                alamat: masukUser.alamat,
+                email: masukUser.email,
+                kataSandi: masukUser.kataSandi,
+                role:masukUser.role,
+                token: token
+            }
+        })
+    }catch(err){
         res.status(500).json({
             status:'Gagal',
-            message:'Maaf, ada kesalahan saat memasukkan email atau kata sandi anda'
+            message:err.message
         })
     }
+
 };
 
 const ambilSemuaProfile = async (req, res) =>{
