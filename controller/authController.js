@@ -13,7 +13,7 @@ const generateToken = async(payload) => {
 
 
 // Register Users
-const register = async (req,res)=>{
+const buatAkunUser= async (req,res)=>{
     try{
         const poto = req.file.path
         const {
@@ -165,9 +165,9 @@ const hapusProfile = async(req, res)=>{
 }
 
 module.exports={
-    register,
+    buatAkunUser,
     login,
     ambilSemuaProfile,
     ubahProfile,
-    hapusProfile
+    hapusProfile,
 }
